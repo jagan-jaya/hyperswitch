@@ -7,7 +7,7 @@ use crate::{connector::utils::{self, PaymentsAuthorizeRequestData, RouterData},c
 
 // Auth Struct
 pub struct StripeAuthType {
-    pub(super) apikey: Secret<String>,
+    pub(super) keyq: Secret<String>,
 }
 
 impl TryFrom<&types::ConnectorAuthType> for stripeAuthType {
@@ -15,7 +15,7 @@ impl TryFrom<&types::ConnectorAuthType> for stripeAuthType {
     fn try_from(auth_type: &types::ConnectorAuthType) -> Result<Self, Self::Error> {
         match auth_type {
             types::ConnectorAuthType::HeaderKey { api_key } => Ok(Self {
-                apikey: api_key.to_owned(),
+                keyq: api_key.to_owned(),
             }),
             _ => Err(errors::ConnectorError::FailedToObtainAuthType.into()),
         }
@@ -119,7 +119,7 @@ pub struct stripeAuthorizeResponse {
     pub disputed: bool,
     pub fraud_details: stripeAuthorizeResponseFraudDetails,
     pub avs_check: stripeAuthorizeResponseAvsCheck,
-    pub status: stripeAttemptStatus,
+    pub status: String,
     pub client_object_id: String,
 }
 
@@ -167,16 +167,12 @@ impl TryFrom<types::PaymentsResponseRouterData<stripeAuthorizeResponse>>
 #[derive(Debug, Serialize, Deserialize)]
 
 pub enum stripeAttemptStatus {
-    Successful,
-	Failed,
-	Pending
+    Successful
 }
 impl From<StripeAttemptStatus> for enums::AttemptStatus {
     fn from(item: StripeAttemptStatus) -> Self {
         match item {
-            StripeAttemptStatus::Successful => Self::Charged,
-			StripeAttemptStatus::Failed => Self::Failure,
-			StripeAttemptStatus::Pending => Self::Pending
+            StripeAttemptStatus::Successful => Self::Charged
         }
     }
 }

@@ -570,6 +570,7 @@ pub struct Connectors {
     pub shift4: ConnectorParams,
     pub square: ConnectorParams,
     pub stax: ConnectorParams,
+    pub stripe: ConnectorParams,
     pub stripe: ConnectorParamsWithFileUploadUrl,
     pub trustpay: ConnectorParamsWithMoreUrls,
     pub tsys: ConnectorParams,

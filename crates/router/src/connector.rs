@@ -43,6 +43,7 @@ pub mod shift4;
 pub mod square;
 pub mod stax;
 pub mod stripe;
+pub mod stripe;
 pub mod trustpay;
 pub mod tsys;
 pub mod utils;

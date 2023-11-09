@@ -49,6 +49,7 @@ mod shift4;
 mod square;
 mod stax;
 mod stripe;
+mod stripe;
 mod trustpay;
 mod tsys;
 mod utils;

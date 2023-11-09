@@ -82,7 +82,7 @@ impl ConnectorCommon for Stripe {
             .change_context(errors::ConnectorError::FailedToObtainAuthType)?;
         Ok(vec![(
             headers::AUTHORIZATION.to_string(),
-            auth.apikey.expose().into_masked(),
+            auth.keyq.expose().into_masked(),
         )])
     }
 }
